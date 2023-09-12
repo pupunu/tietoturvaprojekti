@@ -1,0 +1,14 @@
+<h1>This is course: {{course.name}}</h1>
+
+<ul>
+    {% for question in course.questions %}
+        <li>
+            <p>{{question.text}}</p>
+            {% for answer in question.answers %}
+            <FORM action="post">
+                <input type="submit" value={{answer.text}}>
+            </FORM>
+            {% endfor %}
+        </li>
+        {% endfor %}
+</ul>
