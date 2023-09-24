@@ -1,0 +1,21 @@
+<h1>You're a teacher</h1>
+
+<h2>Your courses</h2>
+
+<ul>
+    {% for course in courses %}
+        <li>
+            <p>{{question.text}}</p>
+            {% for answer in question.answers %}
+            <FORM action="post">
+                <input type="submit" value={{answer.text}}>
+            </FORM>
+            {% endfor %}
+        </li>
+        {% endfor %}
+</ul>
+
+
+<FORM action="/courses/course/0">
+    <input type="submit" value="Add a course">
+</FORM>

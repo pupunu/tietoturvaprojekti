@@ -1,8 +1,12 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+'''
 class Course(models.Model):
     name = models.CharField(max_length=200)
     questions = []
+    teacher = models.ForeignKey(User, models.SET_NULL,
+    blank=True,
+    null=True)
     def __str__(self):
         return self.name
 
@@ -17,3 +21,4 @@ class Answer(models.Model):
     right= models.BooleanField(default=False)
     def __str__(self):
         return self.text
+        '''
