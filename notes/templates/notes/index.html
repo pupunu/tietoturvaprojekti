@@ -1,0 +1,33 @@
+<h1>Your notes here</h1>
+
+{% if notes_list %}
+    <ul>
+    {% for note in notes_list %}
+        <li>
+            <form action="/notes/delete/{{note.id}}" method="POST">
+                {% csrf_token %}
+
+                {{note.text}}
+
+                <input type="submit" value="Delete!"">
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no notes :(</p>
+{% endif %}
+
+<h2>Add a note</h2>
+
+<form action="/notes/add/" method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="note">
+    <input type="submit" value="Add">    
+</form>
+
+<form action='logout/' method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Logout"/>
+</form>
