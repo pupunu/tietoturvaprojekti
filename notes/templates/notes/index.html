@@ -1,4 +1,4 @@
-<h1>Your notes here</h1>
+<h1>Your notes here, {{user}}</h1>
 
 {% if notes_list %}
     <ul>
@@ -24,10 +24,21 @@
     {% csrf_token %}
 
     <input type="text" name="note">
+    <input type="hidden" name="user" value="{{user}}">
     <input type="submit" value="Add">    
 </form>
 
-<form action='logout/' method="POST">
+<h2>Filter notes</h2>
+
+<form action="/notes/filter/" method="GET">
     {% csrf_token %}
+
+    <input type="text" name="filter_word">
+    <input type="submit" value="Filter">    
+</form>
+
+<form action='/notes/logout/' method="POST">
+    {% csrf_token %}
+    Logged in as {{user}}
     <input type="submit" value="Logout"/>
 </form>
