@@ -8,7 +8,7 @@ No exact location of the flaw in the current code
 All http requests are sent in plain text. This makes it easy for a man-in-the-middle attack, for example reading the login credentials from the request.
 This can be fixed by using https connections for everything. For this a https proxy has to be installed. A possible solution would be nstalling a NGINX (on debian/ubuntu systems this can be done with ´sudo apt install nginx´) and adding the following file:
 
-´´´
+´
 server {
     listen 80;
     listen [::]:80;
@@ -31,7 +31,7 @@ server {
                 proxy_redirect off;
     }
 }
-´´´
+´
 
 to /etc/nginx/sites-enabled. Getting the https certificates is out of the scope of this course.
 
@@ -66,3 +66,4 @@ A07:2021 – Identification and Authentication Failures
 Flaw location views -> register
 The application allows any passwords. This means that users are not forced to use secure passwords which makes the users vulnerable.
 The solutions could, eg. be checking if the password is in a list of most used passwords and to require special characters.
+
