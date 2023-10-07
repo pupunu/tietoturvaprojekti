@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+import requests
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -9,9 +11,15 @@ from django.http import HttpResponse
 
 from .models import Note
 
+#allowed_urls = ["https://fi.wikipedia.org", "https://en.wikipedia.org"] !!! Part of correction for flaw 5. Add any other allowed sources here
+
+
 @login_required
 def index(request):
-    notes_list = Note.objects.filter(owner = request.user)
+    notes_list = list(Note.objects.filter(owner = request.user))
+    for index, note in enumerate(notes_list):
+        if note.text.startswith("http"): #Flaw 5 correction: replace this row with --> if any(note.text.startswith(allowed_url) for allowed_url in allowed_urls)
+            notes_list[index] = Note(id = note.id, text = requests.get(note.text).text)
     context = {'notes_list':notes_list, "user":request.user}
     return render(request, "notes/index.html", context)
 
@@ -20,8 +28,8 @@ def add(request):
     text = request.POST.get('note')
 
     if text != "":
-        user = User.objects.filter(username = request.POST.get('user'))[0] #flaw correction: remove
-        note = Note.objects.create(text = text, owner = user) #flaw correction: remove
+        user = User.objects.filter(username = request.POST.get('user'))[0] #flaw3 correction: remove
+        note = Note.objects.create(text = text, owner = user) #flaw3 correction: remove
         #Flaw 3: replace 2 rows above with 1 row below
         #note = Note.objects.create(text = text, owner = request.user)
     return redirect("/")
@@ -43,5 +51,17 @@ def filter(request):
 def register(request):
     username = request.POST.get("username")
     password = request.POST.get("password")
-    user = User.objects.create_user(username, "", password)
-    return redirect("/")
+    
+    if User.objects.filter(username = username).exists():
+        return HttpResponse("Username already taken!!!")
+
+    # Flaw 6 correction: add lines below
+    #elif len(password) < 5 or username in password: #could also add checking common passwords or speacial characters
+    #    return HttpResponse("Your password should be at least 6 characters long!!!")
+
+    else:
+        user = User.objects.create_user(username, "", password)
+        return redirect("/")    
+    
+    #Flaw 6 correction: replace line above with line below
+    #return render(request, "notes/login.html", context)
