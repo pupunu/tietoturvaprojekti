@@ -62,6 +62,3 @@ def register(request):
     else:
         user = User.objects.create_user(username, "", password)
         return redirect("/")    
-    
-    #Flaw 6 correction: replace line above with line below
-    #return render(request, "notes/login.html", context)
