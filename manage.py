@@ -19,7 +19,7 @@ def main():
 
 
 if __name__ == '__main__':
-    from django.core.management.commands.runserver import Command as runserver #Flaw 4 correction: remove
+    '''from django.core.management.commands.runserver import Command as runserver #Flaw 4 correction: remove
     runserver.default_port = "8080" #Flaw 4 correction: remove
-    runserver.default_addr = "0.0.0.0" #Flaw 4 correction: remove
+    runserver.default_addr = "0.0.0.0" #Flaw 4 correction: remove'''
     main()

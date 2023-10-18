@@ -28,15 +28,15 @@ def add(request):
     text = request.POST.get('note')
 
     if text != "":
-        user = User.objects.filter(username = request.POST.get('user'))[0] #flaw3 correction: remove
-        note = Note.objects.create(text = text, owner = user) #flaw3 correction: remove
+        user = User.objects.filter(username = request.POST.get('user'))[0] #FLAW3 correction: remove
+        note = Note.objects.create(text = text, owner = user) #FLAW3 correction: remove
         #Flaw 3: replace 2 rows above with 1 row below
         #note = Note.objects.create(text = text, owner = request.user)
     return redirect("/")
 
 @login_required
 def delete(request, note_id):
-    note = Note.objects.filter(id = note_id)[0]
+    note = Note.objects.filter(id = note_id)[0] #FLAW 7: replace with note = Note.objects.filter(id = note_id, owner = request.user)[0]
     note.delete()
     return redirect("/")
 
@@ -44,7 +44,7 @@ def delete(request, note_id):
 def filter(request):
     filter_word = request.GET.get("filter_word")
     notes_list = Note.objects.raw("SELECT * FROM notes_note WHERE owner_id = " + str(request.user.id) + " AND text like '%" + filter_word + "%'")
-    # Flaw 2: Replace row above with: notes_list = Note.objects.filter(owner = request.user, text__icontains=filter_word)
+    # Flaw 2: Replace row above with: notes_list = Note.objects.filter(owner = request.user, text__contains=filter_word)
     context = {'notes_list':notes_list, "user":request.user}
     return render(request, "notes/index.html", context)
 
