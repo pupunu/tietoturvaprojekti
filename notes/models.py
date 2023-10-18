@@ -7,4 +7,4 @@ class Note(models.Model):
     text = models.CharField(max_length = 500)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
-        return self.note_text
+        return self.text
