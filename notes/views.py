@@ -4,14 +4,12 @@ from django.contrib.auth.models import User
 import requests
 from django.http import HttpResponse
 
-# Create your views here.
-
 
 from django.http import HttpResponse
 
 from .models import Note
 
-#allowed_urls = ["https://fi.wikipedia.org", "https://en.wikipedia.org"] !!! Part of correction for flaw 5. Add any other allowed sources here
+#allowed_urls = ["https://fi.wikipedia.org", "https://en.wikipedia.org"] #!!! Part of correction for flaw 5. Add any other allowed sources here
 
 
 @login_required
