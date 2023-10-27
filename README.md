@@ -146,12 +146,12 @@ This could be solved in multiple ways. We could consider the bare minimum to be 
 
 ```Python
 elif len(password) < 5 or username in password:
-	return HttpResponse("Your password should be at least 6 characters long!!!")
+	return HttpResponse("Your password should be at least 6 characters long and not include your username!!!")
 ```
 
 Now if the password is less than 6 characters or includes the username, the user will not be created and an error message with "Your password should be at least 6 characters long" is shown to the user.
 
-However, the system could be made more secure, eg. by banning most common passwords (like "password" and "password123"), that could be read from a separate database, and for requiring both lower and upper case letters as well as special characters in the passwords.
+However, the system could be made more secure, eg. by banning most common passwords (like "password" and "password123"), that could be read from a separate database, and for requiring both lower and upper case letters as well as special characters in the passwords. For this website, I have decided that the level of security implemented with the fixes is enough.
 
 ---
 

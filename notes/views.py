@@ -55,7 +55,7 @@ def register(request):
 
     # Flaw 6 correction: add lines below
     #elif len(password) < 5 or username in password: #could also add checking common passwords or speacial characters
-    #    return HttpResponse("Your password should be at least 6 characters long!!!")
+    #    return HttpResponse("Your password should be at least 6 characters long and not include your username!!!")
 
     else:
         user = User.objects.create_user(username, "", password)
